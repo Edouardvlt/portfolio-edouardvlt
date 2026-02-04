@@ -25,6 +25,9 @@
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
+    <!-- Splide.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+
 
     <style>
         .ttcommons {
@@ -149,7 +152,7 @@
             width: min(80vw, 700px);
             /* Larger, responsive size */
             height: 200%;
-            background-image: url("images/Photo-Edouard.png");
+            background-image: url("images/Photo-header.png");
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center bottom;
@@ -169,7 +172,7 @@
         nav {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             padding: 1rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
@@ -180,11 +183,12 @@
             font-size: 1.2rem;
             font-weight: 600;
             letter-spacing: 1px;
+            margin-top: -1rem;
         }
 
         .logo img {
-            height: 36px;
-            /* match header height visually */
+            height: 75px;
+            /* Logo très grand */
             width: auto;
             display: block;
         }
@@ -193,6 +197,7 @@
             display: flex;
             gap: 2.5rem;
             list-style: none;
+            margin-top: 1rem;
         }
 
         .nav-links a {
@@ -243,6 +248,7 @@
             justify-content: center;
             font-size: 0.8rem;
             color: white;
+            padding-top: 2px;
         }
 
         .hero-content {
@@ -546,18 +552,44 @@
         }
 
         .portfolio-item:hover {
-            transform: scale(1.05);
+            box-shadow: none !important;
+            transform: none !important;
         }
 
         /* Ensure images inside portfolio items scale to fit the box */
         .portfolio-item img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            display: block;
-            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: none !important;
+            border: none !important;
+        }
+
+        .portfolio-item:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-overlay span {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
         }
 
         /* --- PROFILE ABOUT SECTION --- */
@@ -855,8 +887,6 @@
             font-size: 0.8rem;
             margin-bottom: 2rem;
             opacity: 0.4;
-            text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
         .tools-grid {
@@ -1366,59 +1396,136 @@
             }
 
             /* 2. Decrease poster carousel size by 40% */
-            .portfolio-item {
-                min-width: 130px !important;
-                /* ~40% reduction from 220px/mobile baseline */
-                padding: 0 5px !important;
-                /* Tighten horizontal spacing */
+
+
+            /* --- NEW MOBILE FIXES --- */
+
+            /* Convert Profile Grid to Flex Column */
+            .profile-about-section {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 3rem !important;
+                margin: 4rem auto !important;
+                padding: 0 1.5rem !important;
+                text-align: left !important;
             }
 
-            .portfolio-item img {
-                height: 220px !important;
-                /* Scale down the height to keep aspect ratio */
-                width: auto !important;
-                filter: brightness(0.9);
-                /* Slightly boost brightness for mobile screens */
+            /* Fix Overlapping Image */
+            .profile-image-container {
+                order: 2;
+                /* Move image to middle */
+                max-width: 80% !important;
+                margin: 0 auto !important;
+                display: flex;
+                justify-content: center;
             }
 
-            /* 3. Slow down the scroll slightly for better visibility on smaller posters */
-            .carousel-container {
-                animation: scroll 20s linear infinite !important;
-                gap: 12px !important;
+            .profile-image-container img {
+                filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+            }
+
+            .about-left {
+                order: 1;
+                /* Formation first */
+                width: 100% !important;
+                text-align: left !important;
+            }
+
+            .about-right {
+                order: 3;
+                /* Skills last */
+                width: 100% !important;
+                text-align: left !important;
+                margin-top: 0 !important;
+            }
+
+            /* Typography Adjustments */
+            .about-details h3 {
+                font-size: 0.85rem !important;
+                margin-top: 1.5rem !important;
+                margin-bottom: 0.8rem !important;
+                color: #49c8d3 !important;
+                /* Ensure visibility */
+            }
+
+            .about-details ul,
+            .about-details p {
+                font-size: 0.9rem !important;
+                line-height: 1.6 !important;
+                color: rgba(255, 255, 255, 0.9) !important;
+            }
+
+            .about-right .about-details h3,
+            .about-right .about-details p,
+            .about-right .about-details ul {
+                text-align: left !important;
             }
         }
+
+        .portfolio-item {
+            min-width: 130px !important;
+            /* ~40% reduction from 220px/mobile baseline */
+            padding: 0 5px !important;
+            /* Tighten horizontal spacing */
+        }
+
+        .portfolio-item img {
+            height: 220px !important;
+            /* Scale down the height to keep aspect ratio */
+            width: auto !important;
+            filter: brightness(0.9);
+            /* Slightly boost brightness for mobile screens */
+        }
+
+        /* 3. Slow down the scroll slightly for better visibility on smaller posters */
+        .carousel-container {
+            animation: scroll 20s linear infinite !important;
+            gap: 12px !important;
+        }
+
 
         @media (max-width: 480px) {
 
             /* 1. Decrease overall hero section size */
-            .hero {
-                padding-top: 60px !important;
-                /* Move content up to show more of the image */
+            /* 1. Decrease overall hero section size */
+            .hero-section {
+                padding-top: 100px !important;
+                /* Push down to clear fixed navbar */
                 height: auto !important;
                 min-height: 80vh !important;
+                display: flex !important;
+                flex-direction: column !important;
             }
 
-            /* 2. Make the picture more visible */
+            /* 2. Make the picture more visible and fix overlap */
             .hero-image-container {
                 height: 350px !important;
-                /* Shorter container to prevent the image from being cut off */
-                margin-top: -20px !important;
+                /* Positive margin to push it down from text */
+                margin-top: 2rem !important;
                 opacity: 1 !important;
-                /* Ensure full visibility */
+                position: relative !important;
+                z-index: 1 !important;
             }
 
             .hero-image {
                 object-position: center 20% !important;
-                /* Adjusts the crop to show the face/upper body better */
                 transform: scale(0.9) !important;
-                /* Slightly shrink the image to fit the screen better */
             }
 
-            /* 3. Decrease size of text elements */
+            /* 3. Decrease size of text elements & Fix Title Z-Index */
+            .hero-content {
+                position: relative !important;
+                z-index: 10 !important;
+                /* Ensure text is above image */
+                margin-bottom: 0 !important;
+            }
+
             .hero-content h1 {
                 font-size: 2.8rem !important;
-                /* Smaller main heading */
                 margin-bottom: 0.5rem !important;
+                position: relative !important;
+                z-index: 20 !important;
+                /* Title strictly above everything */
             }
 
             .hero-content p {
@@ -1432,6 +1539,90 @@
                 padding: 0.8rem 1.8rem !important;
                 /* Smaller button */
                 font-size: 0.9rem !important;
+            }
+
+            /* Fix Footer Logo Sizing - Increased as requested */
+            .footer-logo {
+                width: 100px !important;
+                /* Increased from 60px */
+                height: auto !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            /* Fix Footer Name Color & Visibility */
+            .footer-name {
+                color: #ff6b35 !important;
+                /* Orange */
+                opacity: 1 !important;
+                font-size: 2.5rem !important;
+                /* Ensure it's readable but not huge */
+            }
+
+            /* HIDE CUSTOM CURSOR ON MOBILE */
+            .custom-cursor {
+                display: none !important;
+            }
+
+            /* RESTORE NAVBAR */
+            nav {
+                display: flex !important;
+                position: fixed !important;
+                top: 0 !important;
+                width: 100% !important;
+                z-index: 9999 !important;
+                background: transparent !important;
+                /* Transparent as requested */
+                backdrop-filter: none !important;
+                /* No blur */
+                padding: 1rem 1.5rem !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                height: auto !important;
+                min-height: 60px !important;
+            }
+
+            /* Adjust logo in navbar for mobile */
+            .logo {
+                flex-shrink: 0 !important;
+                display: flex !important;
+                align-items: center !important;
+            }
+
+            .logo img {
+                height: 40px !important;
+                /* Slightly larger */
+                width: auto !important;
+                display: block !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+
+            /* HIDE CTA BUTTON */
+            .cta-button {
+                display: none !important;
+            }
+
+            /* SHOW NAV LINKS */
+            .nav-links {
+                display: flex !important;
+                gap: 1rem !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: transparent !important;
+            }
+
+            .nav-links li {
+                list-style: none !important;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem !important;
+                /* Smaller text for mobile */
+                color: white !important;
+                text-decoration: none !important;
+                font-weight: 500 !important;
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+                /* Text shadow for readability on transparent bg */
             }
         }
 
@@ -1527,6 +1718,313 @@
         button:hover~.custom-cursor {
             transform: translate(-50%, -50%) scale(1.6);
         }
+
+        /* --- FOOTER LOGO --- */
+        .footer-logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: -1rem;
+        }
+
+        /* --- TIMELINE SECTION --- */
+        .timeline-section {
+            max-width: 1400px;
+            margin: 8rem auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .timeline-header h2 {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #ff6b35;
+            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .timeline-header h3 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            color: white;
+            font-family: 'HelveticaLocal', Helvetica, Arial, sans-serif;
+            line-height: 1.2;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        /* Central vertical line */
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom,
+                    transparent,
+                    rgba(255, 107, 53, 0.3) 10%,
+                    rgba(255, 107, 53, 0.3) 90%,
+                    transparent);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(.165, .84, .44, 1);
+        }
+
+        .timeline-item.reveal-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Dot on the timeline */
+        .timeline-dot {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff8c42, #ff6b35);
+            border: 4px solid #000;
+            box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
+        }
+
+        .timeline-dot svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+
+        /* Card styles */
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .timeline-content:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 107, 53, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.15);
+        }
+
+        .timeline-content h4 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .timeline-content .timeline-meta {
+            font-size: 0.9rem;
+            color: #ff6b35;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .timeline-content .timeline-location {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .timeline-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .timeline-content li {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.6rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .timeline-content li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #ff6b35;
+            font-weight: bold;
+        }
+
+        /* Left side items */
+        .timeline-item.left .timeline-content {
+            grid-column: 1;
+        }
+
+        .timeline-item.left .timeline-empty {
+            grid-column: 3;
+        }
+
+        /* Right side items */
+        .timeline-item.right .timeline-content {
+            grid-column: 3;
+        }
+
+        .timeline-item.right .timeline-empty {
+            grid-column: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .timeline-container::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                grid-template-columns: auto 1fr;
+                gap: 1.5rem;
+            }
+
+            .timeline-item.left .timeline-content,
+            .timeline-item.right .timeline-content {
+                grid-column: 2;
+            }
+
+            .timeline-empty {
+                display: none;
+            }
+
+            .timeline-dot {
+                grid-column: 1;
+                grid-row: 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .timeline-section {
+                margin: 4rem auto;
+            }
+
+            .timeline-header h3 {
+                font-size: 2rem;
+            }
+
+            .timeline-content {
+                padding: 1.5rem;
+            }
+
+            .timeline-dot {
+                width: 40px;
+                height: 40px;
+            }
+
+            .timeline-dot svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        /* Splide Carousel Adjustments */
+        .splide__track {
+            padding: 0 !important;
+        }
+
+        .splide__list {
+            padding: 0;
+        }
+
+        .splide__slide {
+            width: auto !important;
+            max-height: 200px !important;
+        }
+
+        .portfolio-item {
+            width: 250px;
+            height: 200px !important;
+            max-height: 200px !important;
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-overlay span {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .project-info-mini {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .project-info-mini h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin: 0 0 0.3rem 0;
+        }
+
+        .project-info-mini p {
+            color: #ff6b35;
+            font-size: 0.9rem;
+            margin: 0;
+        }
     </style>
 </head>
 
@@ -1535,7 +2033,7 @@
     <section class="hero-section reveal">
         <nav>
             <div class="logo">
-                <img src="https://i.ibb.co/NdZmT13P/ls2-Photoroom-png-Photoroom-Copy-1-Copy.png" alt="Layerstop logo">
+                <img src="/images/Edouard Vallet.gif" alt="Edouard Vallet logo">
             </div>
             <ul class="nav-links">
                 <li><a href="#">Accueil</a></li>
@@ -1567,10 +2065,13 @@
                         <div class="service-name">Système</div>
                     </div>
                     <div class="service-item">
-                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M16 4l4 2-2 4v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V10L4 6l4-2"></path>
-                            <path d="M8 4l4 3 4-3"></path>
+                        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="16" y="16" width="6" height="6" rx="1"></rect>
+                            <rect x="2" y="16" width="6" height="6" rx="1"></rect>
+                            <rect x="9" y="2" width="6" height="6" rx="1"></rect>
+                            <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path>
+                            <path d="M12 12V8"></path>
                         </svg>
                         <div class="service-name">Réseau</div>
                     </div>
@@ -1609,23 +2110,24 @@
     <section class="brands-section">
         <div class="brands-title">Environnements & Technologies</div>
         <div class="brands-grid">
-            <div class="brand-item"><a href="https://ibb.co/vxRgyCD6" target="_blank" rel="noopener noreferrer"><img
-                        class="brand-logo" src="https://i.ibb.co/VW5rn03c/image-removebg-preview-7.png"
-                        alt="VR Luxuries logo"></a></div>
-            <div class="brand-item"><a href="https://imgbb.com/" target="_blank" rel="noopener noreferrer"><img
-                        class="brand-logo" src="https://i.ibb.co/6RXjvt8W/ls2-Photoroom-png-Photoroom-Copy-1-Copy.png"
-                        alt="Layerstop logo"></a></div>
-            <div class="brand-item"><a href="https://ibb.co/LdtM7NR1" target="_blank" rel="noopener noreferrer"><img
-                        class="brand-logo"
-                        src="https://i.ibb.co/HTz08h4q/p-Vi6ac-UPBQY7-Itjptopv-Y2y-Wp4-Ltw-Bxxk-Em-XYHP7.png"
-                        alt="Velva Aura logo"></a></div>
-            <div class="brand-item"><a href="https://imgbb.com/" target="_blank" rel="noopener noreferrer"><img
-                        class="brand-logo" src="https://i.ibb.co/whHBfp7z/devsphere-Logo.png" alt="Devspear logo"></a>
+            <div class="brand-item">
+                <img class="brand-logo" src="https://cdn.simpleicons.org/linux/FCC624" alt="Linux logo">
+            </div>
+            <div class="brand-item">
+                <img class="brand-logo" src="https://cdn.simpleicons.org/vmware/607078" alt="VMware logo">
+            </div>
+            <div class="brand-item">
+                <img class="brand-logo" src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker logo">
+            </div>
+            <div class="brand-item">
+                <img class="brand-logo"
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg"
+                    alt="Windows Server logo" style="filter: brightness(0) invert(1);">
             </div>
         </div>
     </section>
 
-    <section class="about-section reveal">
+    <section class="about-section">
         <div class="about-grid">
             <div class="about-left">
                 <p class="section-label"></p>
@@ -1646,222 +2148,756 @@
             </div>
         </div>
 
-        <div class="portfolio-carousel">
-            <div class="carousel-container">
+        <!-- Timeline Container -->
+        <div class="timeline-container">
 
-                <div class="portfolio-item">
-                    <a href="https://www.behance.net/shashisha1" target="_blank" rel="noopener noreferrer">
-                        <img src="https://i.ibb.co/cfvRX85/OPPENHIEMER.png" alt="OPPENHIEMER">
-                    </a>
+            <!-- BACCALAURÉAT (2021-2024) -->
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h4>Baccalauréat Général</h4>
+                    <div class="timeline-meta">2021 - 2024</div>
+                    <div class="timeline-location">Lycée Notre-Dame d'Espérance, Saint-Nazaire</div>
+                    <ul>
+                        <li>Spécialités Mathématiques et SES</li>
+                        <li>Fondements solides en sciences et économie</li>
+                        <li>Préparation aux études supérieures</li>
+                    </ul>
                 </div>
-
-                <div class="portfolio-item">
-                    <a href="https://www.behance.net/shashisha1" target="_blank" rel="noopener noreferrer">
-                        <img src="images/interstellar.png" alt="Interstellar Project">
-                    </a>
+                <div class="timeline-dot">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 14l9-5-9-5-9 5 9 5z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                    </svg>
                 </div>
-
-                <div class="portfolio-item">
-                    <a href="https://www.behance.net/shashisha1" target="_blank" rel="noopener noreferrer">
-                        <img src="images/heroes_and_villains.png" alt="Heroes & Villains Project">
-                    </a>
-                </div>
-
-                <div class="portfolio-item">
-                    <a href="https://www.behance.net/shashisha1" target="_blank" rel="noopener noreferrer">
-                        <img src="images/we_dont_trust_you.jpg" alt="We Don't Trust You Project">
-                    </a>
-                </div>
-
-                <div class="portfolio-item">
-                    <a href="https://www.behance.net/shashisha1" target="_blank" rel="noopener noreferrer">
-                        <img src="images/seedhe_maut.png" alt="Seedhe Maut Project">
-                    </a>
-                </div>
-
-                <!-- duplicated for continuous scrolling -->
-
-                <div class="portfolio-item">
-                    <a href="https://www.behance.net/shashisha1" target="_blank" rel="noopener noreferrer">
-                        <img src="https://i.ibb.co/cfvRX85/OPPENHIEMER.png" alt="OPPENHIEMER">
-                    </a>
-                </div>
-
-                <div class="portfolio-item">
-                    <a href="https://www.behance.net/shashisha1" target="_blank" rel="noopener noreferrer">
-                        <img src="images/interstellar.png" alt="Interstellar Project">
-                    </a>
-                </div>
-
-                <div class="portfolio-item">
-                    <a href="https://www.behance.net/shashisha1" target="_blank" rel="noopener noreferrer">
-                        <img src="images/heroes_and_villains.png" alt="Heroes & Villains Project">
-                    </a>
-                </div>
-
-                <div class="portfolio-item">
-                    <a href="https://www.behance.net/shashisha1" target="_blank" rel="noopener noreferrer">
-                        <img src="images/we_dont_trust_you.jpg" alt="We Don't Trust You Project">
-                    </a>
-                </div>
-
-                <div class="portfolio-item">
-                    <a href="https://www.behance.net/shashisha1" target="_blank" rel="noopener noreferrer">
-                        <img src="images/seedhe_maut.png" alt="Seedhe Maut Project">
-                    </a>
-                </div>
-
+                <div class="timeline-empty"></div>
             </div>
-        </div>
-    </section>
 
-    <section class="profile-about-section reveal" id="about">
-        <div class="about-details about-left">
-            <h3>Formation</h3>
-            <ul>
-                <li>Bachelor Info Sys/Réseau/Cloud — Sup de Vinci, Nantes</li>
-                <li>ESGI Nantes (2024-2025)</li>
-                <li>Bac Général — Maths & SES</li>
-            </ul>
-
-            <h3>Expérience</h3>
-            <p>Stage Dev Web | Optimix, Lille (Juin-Juillet 2025)<br>
-                Stage Support IT | Soluce Informatique, Pornic (Janvier 2023)</p>
-
-            <h3>Réalisations</h3>
-            <p>Projet CCNA multi-sites (VLANs, OPNsense, ESXi)<br>
-                Hackathon ESGI — Outil analyse médical (Mai 2025)</p>
-        </div>
-
-        <div class="profile-image-container reveal">
-            <img src="images/arriere-plan-footer.png" alt="Profile Silhouette">
-        </div>
-
-        <div class="about-details about-right">
-            <h3>Langues</h3>
-            <ul>
-                <li>Français (Natif)</li>
-                <li>Anglais (B2)</li>
-                <li>Allemand (A2)</li>
-                <li>Python / Bash / C / Go</li>
-            </ul>
-
-            <h3>Stack Technique</h3>
-            <p>Linux, Windows Server, VMware, Docker, OPNsense, Grafana, Git</p>
-
-            <h3>Contact</h3>
-            <p><a href="https://linkedin.com/in/edouard-vallet/" target="_blank">LinkedIn</a> • <a
-                    href="https://github.com/Edouardvit" target="_blank">GitHub</a><br>
-                <a href="mailto:edouard.vlt@icloud.com">edouard.vlt@icloud.com</a>
-            </p>
-
-            <h3>Intérêts</h3>
-            <p>Cybersécurité, Codage, Voile, Cinéma SF, Voyages</p>
-        </div>
-    </section>
-
-    <section class="tools-section reveal">
-        <div class="tools-container">
-            <div class="tools-left">
-                <div class="tools-title">Ma Stack Technique</div>
-                <div class="tools-grid">
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/linux/FCC624" alt="Linux" class="tool-icon">
-                        <span class="tool-name">Linux</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg"
-                            alt="Windows Server" class="tool-icon">
-                        <span class="tool-name">Windows</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://img.icons8.com/color/48/active-directory.png" alt="Active Directory"
-                            class="tool-icon">
-                        <span class="tool-name">Active Dir.</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/vmware/607078" alt="VMware" class="tool-icon">
-                        <span class="tool-name">VMware</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/virtualbox/183A61" alt="VirtualBox" class="tool-icon">
-                        <span class="tool-name">VirtualBox</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker" class="tool-icon">
-                        <span class="tool-name">Docker</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/icloud/3693F3" alt="Cloud" class="tool-icon">
-                        <span class="tool-name">Cloud</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" class="tool-icon">
-                        <span class="tool-name">Python</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/gnubash/4EAA25" alt="Bash" class="tool-icon">
-                        <span class="tool-name">Bash</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/c/A8B9CC" alt="C" class="tool-icon">
-                        <span class="tool-name">C</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/assemblyscript/007AAC" alt="Assembleur" class="tool-icon">
-                        <span class="tool-name">Assembleur</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/go/00ADD8" alt="Go" class="tool-icon">
-                        <span class="tool-name">Go</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" class="tool-icon">
-                        <span class="tool-name">JavaScript</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/nodedotjs/339933" alt="Node.js" class="tool-icon">
-                        <span class="tool-name">Node.js</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/php/777BB4" alt="PHP" class="tool-icon">
-                        <span class="tool-name">PHP</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL" class="tool-icon">
-                        <span class="tool-name">MySQL</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/git/F05032" alt="Git" class="tool-icon">
-                        <span class="tool-name">Git</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/github/FFFFFF" alt="GitHub" class="tool-icon">
-                        <span class="tool-name">GitHub</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/apache/D22128" alt="Apache" class="tool-icon">
-                        <span class="tool-name">Apache</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/gnometerminal/FFFFFF" alt="SSH" class="tool-icon">
-                        <span class="tool-name">SSH</span>
-                    </div>
-                    <div class="tool-item">
-                        <img src="https://cdn.simpleicons.org/grafana/F46800" alt="Grafana" class="tool-icon">
-                        <span class="tool-name">Grafana</span>
-                    </div>
+            <!-- STAGE SOLUCE INFORMATIQUE (Janvier 2023) -->
+            <div class="timeline-item right">
+                <div class="timeline-empty"></div>
+                <div class="timeline-dot">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                    </svg>
+                </div>
+                <div class="timeline-content">
+                    <h4>Maintenance Support Informatique (Stage)</h4>
+                    <div class="timeline-meta">Janvier 2023</div>
+                    <div class="timeline-location">Soluce Informatique, Pornic</div>
+                    <ul>
+                        <li>Installation de logiciels de sécurité en entreprise</li>
+                        <li>Dépannage informatique à domicile et réparation de matériel</li>
+                        <li>Assistance technique et conseil pour particuliers et professionnels</li>
+                    </ul>
                 </div>
             </div>
-            <div class="tools-right">
-                <p class="tools-description">
-                    J&rsquo;utilise des <b>standards industriels</b> et des outils d&rsquo;<b>automatisation</b> pour
-                    déployer, surveiller et sécuriser les environnements de production.
+
+            <!-- BACHELOR INFORMATIQUE (2024 - Aujourd'hui) -->
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h4>Bachelor Informatique Système, Réseaux et Cloud</h4>
+                    <div class="timeline-meta">2024 - Aujourd'hui</div>
+                    <div class="timeline-location">École Sup de Vinci & ESGI, Nantes</div>
+                    <ul>
+                        <li>Formation approfondie en administration système et réseaux</li>
+                        <li>Spécialisation Cloud et virtualisation</li>
+                        <li>Projets professionnels et techniques avancés</li>
+                    </ul>
+                </div>
+                <div class="timeline-dot">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                </div>
+                <div class="timeline-empty"></div>
+            </div>
+
+            <!-- HACKATHON ESGI (Mai 2025) -->
+            <div class="timeline-item right">
+                <div class="timeline-empty"></div>
+                <div class="timeline-dot">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <div class="timeline-content">
+                    <h4>Hackathon (48h)</h4>
+                    <div class="timeline-meta">Mai 2025</div>
+                    <div class="timeline-location">ESGI, Nantes</div>
+                    <ul>
+                        <li>Création en équipe d'un outil d'analyse pour le secteur médical</li>
+                        <li>Connexion d'API de données à une application web</li>
+                        <li>Développement agile et collaboration intensive</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- STAGE OPTIMIX (Juin-Juillet 2025) -->
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h4>Développement Web (Stage)</h4>
+                    <div class="timeline-meta">Juin - Juillet 2025</div>
+                    <div class="timeline-location">Optimix, Lille</div>
+                    <ul>
+                        <li>Création d'un site internet et ajout de fonctionnalités pour une micro-entreprise</li>
+                        <li>Recherche documentaire et élaboration de synthèses</li>
+                        <li>Tests et débogage avant mise en production</li>
+                    </ul>
+                </div>
+                <div class="timeline-dot">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                </div>
+                <div class="timeline-empty"></div>
+            </div>
+
+            <!-- PROJET CCNA (Janvier 2026) -->
+            <div class="timeline-item right">
+                <div class="timeline-empty"></div>
+                <div class="timeline-dot">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                    </svg>
+                </div>
+                <div class="timeline-content">
+                    <h4>Projet CCNA</h4>
+                    <div class="timeline-meta">Janvier 2026</div>
+                    <div class="timeline-location">Sup de Vinci, Nantes</div>
+                    <ul>
+                        <li>Mise en place d'une architecture multi-sites (VLANs, Routage IPv4/IPv6, NAT/PAT)</li>
+                        <li>Sécurisation par firewall OPNsense sous VMware ESXi</li>
+                        <li>Architecture réseau complexe et sécurisée</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <section class="about-section">
+            <div class="about-grid">
+                <div class="about-left">
+                    <p class="section-label"></p>
+                    <h2 class="about-title"><span class="initial-part">Mes</span> <span
+                            class="portfolio-part">Projets</span></h2>
+                </div>
+
+                <div class="about-divider"></div>
+
+                <div class="about-right">
+                    <p class="about-description">
+                        <b></b>
+                        Passionné par l&rsquo;informatique, j&rsquo;explore les technologies du système,
+                        du réseau et du cloud. Actuellement en Bachelor, je combine théorie et
+                        pratique pour concevoir des solutions pérennes. Ce portfolio illustre mon évolution et ma
+                        maîtrise technique.
+                    </p>
+                </div>
+            </div>
+
+            <!-- SPLIDE CAROUSEL -->
+            <div class="portfolio-carousel">
+                <div class="splide" id="projects-carousel">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+
+                            <!-- Slide 1 -->
+                            <li class="splide__slide">
+                                <div class="portfolio-item project-card" data-title="Optimix Web"
+                                    data-desc="Site vitrine développé pour une micro-entreprise locale. L'objectif était de moderniser leur présence en ligne avec une interface épurée et performante."
+                                    data-feeling="C'était mon premier vrai projet client. J'ai adoré la phase d'échange pour comprendre leurs besoins réels. Le plus dur était de simplifier l'interface pour qu'elle reste accessible à leurs clients non-techniques. Une vraie fierté de voir le site en ligne !"
+                                    data-stack="HTML5 • CSS3 • JavaScript"
+                                    data-image="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop"
+                                    data-link="#">
+                                    <div class="project-overlay"><span>Voir le projet</span></div>
+                                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop"
+                                        alt="Optimix Project">
+                                    <div class="project-info-mini">
+                                        <h3>Optimix</h3>
+                                        <p>Dév. Web</p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Slide 2 -->
+                            <li class="splide__slide">
+                                <div class="portfolio-item project-card" data-title="MediData Analytics"
+                                    data-desc="Projet réalisé en 48h lors du Hackathon ESGI. Une solution d'analyse de données médicales connectée à une API publique pour aider les praticiens."
+                                    data-feeling="48 heures intenses ! J'ai appris à gérer le stress et à prioriser les fonctionnalités essentielles (MVP). Travailler en équipe sous pression m'a beaucoup appris sur la communication technique. Le résultat final était fonctionnel, ce qui était une grande victoire."
+                                    data-stack="Python • API REST • Vue.js"
+                                    data-image="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop"
+                                    data-link="#">
+                                    <div class="project-overlay"><span>Voir le projet</span></div>
+                                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop"
+                                        alt="Hackathon Project">
+                                    <div class="project-info-mini">
+                                        <h3>MediData</h3>
+                                        <p>Hackathon</p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Slide 3 -->
+                            <li class="splide__slide">
+                                <div class="portfolio-item project-card" data-title="Mon Portfolio"
+                                    data-desc="La plateforme sur laquelle vous naviguez ! Conçue pour refléter ma personnalité et mes compétences techniques avec une touche créative."
+                                    data-feeling="Je voulais sortir des sentiers battus. Pas de template WordPress, tout à la main. J'ai passé beaucoup de temps sur les animations (GSAP) et le glassmorphism pour donner cet effet 'premium' et fluide. C'est mon terrain de jeu pour tester de nouvelles choses."
+                                    data-stack="HTML5 • CSS3 • GSAP • Three.js"
+                                    data-image="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=2055&auto=format&fit=crop"
+                                    data-link="#">
+                                    <div class="project-overlay"><span>Voir le projet</span></div>
+                                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=2055&auto=format&fit=crop"
+                                        alt="Portfolio Project">
+                                    <div class="project-info-mini">
+                                        <h3>Portfolio</h3>
+                                        <p>Personal Branding</p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Slide 4 -->
+                            <li class="splide__slide">
+                                <div class="portfolio-item project-card" data-title="Secure Cloud Arch"
+                                    data-desc="Architecture réseau complète sécurisée avec pfSense, DMZ et serveurs virtualisés sous ESXi."
+                                    data-feeling="Purement technique. Configurer les VLANs et les règles de pare-feu m'a passionné. Comprendre comment chaque paquet circule et comment le sécuriser est fascinant. C'est ce projet qui m'a confirmé mon envie de faire de la cybersécurité."
+                                    data-stack="VMware • pfSense • Linux"
+                                    data-image="https://images.unsplash.com/photo-1558494949-efc535b5c47c?q=80&w=2074&auto=format&fit=crop"
+                                    data-link="#">
+                                    <div class="project-overlay"><span>Voir le projet</span></div>
+                                    <img src="https://images.unsplash.com/photo-1558494949-efc535b5c47c?q=80&w=2074&auto=format&fit=crop"
+                                        alt="Cloud Project">
+                                    <div class="project-info-mini">
+                                        <h3>Cloud Arch</h3>
+                                        <p>Système & Réseau</p>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECT MODAL POPUP -->
+        <div id="project-modal" class="project-modal">
+            <div class="modal-glass-content">
+                <button id="close-modal-btn">&times;</button>
+
+                <div class="modal-grid">
+                    <!-- Left: Image -->
+                    <div class="modal-image-col">
+                        <img id="modal-img" src="" alt="Project Preview">
+                        <div class="modal-links">
+                            <a href="#" id="modal-link" target="_blank" class="modal-cta">Visiter le site <span
+                                    class="arrow-icon">→</span></a>
+                        </div>
+                    </div>
+
+                    <!-- Right: Content -->
+                    <div class="modal-text-col">
+                        <h2 id="modal-title">Project Title</h2>
+                        <div class="modal-stack" id="modal-stack">TECH • STACK</div>
+
+                        <div class="modal-body">
+                            <div class="modal-section">
+                                <h5>Le Projet</h5>
+                                <p id="modal-desc">Description goes here.</p>
+                            </div>
+
+                            <div class="modal-section feeling-section">
+                                <h5><span class="heart-icon">♥</span> Mon Ressenti</h5>
+                                <p id="modal-feeling">Personal feeling goes here.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            /* Swiper Container */
+            .portfolio-carousel {
+                padding: 2rem 0;
+                overflow: hidden;
+            }
+
+            #projects-swiper {
+                width: 100%;
+                padding: 2rem 0;
+            }
+
+            .swiper-slide {
+                width: 300px;
+                height: 400px;
+            }
+
+            .portfolio-item {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                border-radius: 12px;
+                overflow: hidden;
+                cursor: pointer;
+                transition: transform 0.3s;
+            }
+
+            .portfolio-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .portfolio-item:hover {
+                transform: scale(1.02);
+                box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+            }
+
+            .project-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.6);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                backdrop-filter: blur(2px);
+                z-index: 2;
+            }
+
+            .project-overlay span {
+                color: #fff;
+                border: 1px solid #ff6b35;
+                padding: 0.5rem 1.5rem;
+                border-radius: 50px;
+                font-family: 'Space Grotesk', sans-serif;
+                text-transform: uppercase;
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+                background: rgba(255, 107, 53, 0.2);
+            }
+
+            .portfolio-item:hover .project-overlay {
+                opacity: 1;
+            }
+
+            .project-info-mini {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+                padding: 2rem 1rem 1rem 1rem;
+                z-index: 2;
+            }
+
+            .project-info-mini h3 {
+                margin: 0;
+                font-size: 1.1rem;
+                color: white;
+                font-family: 'Space Grotesk', sans-serif;
+            }
+
+            .project-info-mini p {
+                margin: 0;
+                font-size: 0.8rem;
+                color: #ff6b35;
+                font-weight: 600;
+            }
+
+            /* Modal Styles */
+            .project-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(8px);
+                z-index: 9999;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.4s ease;
+                padding: 2rem;
+            }
+
+            .project-modal.show {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .modal-glass-content {
+                background: rgba(20, 20, 20, 0.95);
+                border: 1px solid rgba(255, 107, 53, 0.3);
+                width: 100%;
+                max-width: 1000px;
+                max-height: 90vh;
+                border-radius: 20px;
+                padding: 2rem;
+                position: relative;
+                box-shadow: 0 0 50px rgba(255, 107, 53, 0.15);
+                transform: scale(0.95) translateY(20px);
+                transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+                overflow-y: auto;
+            }
+
+            .project-modal.show .modal-glass-content {
+                transform: scale(1) translateY(0);
+            }
+
+            #close-modal-btn {
+                position: absolute;
+                top: 1.5rem;
+                right: 1.5rem;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 2rem;
+                cursor: pointer;
+                z-index: 10;
+                line-height: 1;
+                transition: color 0.3s;
+            }
+
+            #close-modal-btn:hover {
+                color: #ff6b35;
+            }
+
+            .modal-grid {
+                display: grid;
+                grid-template-columns: 1.2fr 1fr;
+                gap: 3rem;
+            }
+
+            .modal-image-col img {
+                width: 100%;
+                border-radius: 12px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .modal-text-col {
+                display: flex;
+                flex-direction: column;
+                color: white;
+                padding-top: 1rem;
+            }
+
+            #modal-title {
+                font-size: 2.5rem;
+                margin: 0 0 0.5rem 0;
+                font-family: 'Space Grotesk', sans-serif;
+                background: linear-gradient(90deg, #fff, #aaa);
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .modal-stack {
+                font-size: 0.9rem;
+                color: #ff6b35;
+                font-family: 'Courier New', monospace;
+                text-transform: uppercase;
+                margin-bottom: 2rem;
+                letter-spacing: 1px;
+            }
+
+            .modal-section {
+                margin-bottom: 2rem;
+            }
+
+            .modal-section h5 {
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                color: #888;
+                margin-bottom: 0.8rem;
+                letter-spacing: 1px;
+            }
+
+            .feeling-section {
+                background: rgba(255, 107, 53, 0.05);
+                padding: 1.5rem;
+                border-radius: 12px;
+                border-left: 3px solid #ff6b35;
+            }
+
+            .feeling-section h5 {
+                color: #ff6b35;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .modal-body p {
+                line-height: 1.7;
+                font-size: 1rem;
+                color: #ddd;
+            }
+
+            .modal-cta {
+                display: inline-block;
+                margin-top: 1.5rem;
+                padding: 0.8rem 2rem;
+                background: #ff6b35;
+                color: white;
+                text-decoration: none;
+                border-radius: 50px;
+                font-weight: 600;
+                transition: all 0.3s;
+            }
+
+            .modal-cta:hover {
+                background: #e55a2b;
+                transform: translateX(5px);
+            }
+
+            @media(max-width: 900px) {
+                .modal-grid {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                }
+
+                #modal-title {
+                    font-size: 1.8rem;
+                }
+            }
+        </style>
+
+        <!-- Splide JS Core + AutoScroll Extension -->
+        <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/js/splide-extension-auto-scroll.min.js"></script>
+
+        <script type="module">
+            import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+
+            function initLiquidButton(containerId) {
+                const container = document.getElementById(containerId);
+            }
+        </script>
+
+        <script>
+            // Initialize Splide with AutoScroll
+            const splide = new Splide('#projects-carousel', {
+                type: 'loop',          // Infinite loop
+                drag: 'free',          // Free drag
+                focus: 0,
+                perPage: 3,            // Show 3 cards at once
+                gap: '2rem',
+                pagination: false,
+                arrows: false,
+                autoScroll: {
+                    speed: 1,          // 1 pixel per second (continuous smooth scroll)
+                    pauseOnHover: true, // PAUSE on hover
+                    pauseOnFocus: false
+                },
+                breakpoints: {
+                    1024: { perPage: 3 },
+                    768: { perPage: 2 },
+                    640: { perPage: 1 }
+                }
+            });
+
+            splide.mount(window.splide.Extensions);
+
+            // Modal Logic (unchanged)
+            const modal = document.getElementById('project-modal');
+            const closeModal = document.getElementById('close-modal-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            projectCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    document.getElementById('modal-title').textContent = card.dataset.title;
+                    document.getElementById('modal-desc').textContent = card.dataset.desc;
+                    document.getElementById('modal-feeling').textContent = card.dataset.feeling;
+                    document.getElementById('modal-stack').textContent = card.dataset.stack;
+                    document.getElementById('modal-img').src = card.dataset.image;
+                    document.getElementById('modal-link').href = card.dataset.link;
+
+                    modal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            closeModal.addEventListener('click', () => {
+                modal.classList.remove('show');
+                document.body.style.overflow = '';
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+            });
+        </script>
+
+        <section class="profile-about-section reveal" id="about">
+            <div class="about-details about-left">
+                <h3>Formation</h3>
+                <ul>
+                    <li>Bachelor Info Sys/Réseau/Cloud — Sup de Vinci, Nantes</li>
+                    <li>ESGI Nantes (2024-2025)</li>
+                    <li>Bac Général — Maths & SES</li>
+                </ul>
+
+                <h3>Expérience</h3>
+                <p>Stage Dev Web | Optimix, Lille (Juin-Juillet 2025)<br>
+                    Stage Support IT | Soluce Informatique, Pornic (Janvier 2023)</p>
+
+                <h3>Réalisations</h3>
+                <p>Projet CCNA multi-sites (VLANs, OPNsense, ESXi)<br>
+                    Hackathon ESGI — Outil analyse médical (Mai 2025)</p>
+            </div>
+
+            <div class="profile-image-container reveal">
+                <img src="images/arriere-plan-footer.png" alt="Profile Silhouette">
+            </div>
+
+            <div class="about-details about-right">
+                <h3>Langues</h3>
+                <ul>
+                    <li>Français (Natif)</li>
+                    <li>Anglais (B2)</li>
+                    <li>Allemand (A2)</li>
+                    <li>Python / Bash / C / Go</li>
+                </ul>
+
+                <h3>Stack Technique</h3>
+                <p>Linux, Windows Server, VMware, Docker, OPNsense, Grafana, Git</p>
+
+                <h3>Contact</h3>
+                <p><a href="https://linkedin.com/in/edouard-vallet/" target="_blank">LinkedIn</a> • <a
+                        href="https://github.com/Edouardvit" target="_blank">GitHub</a><br>
+                    <a href="mailto:edouard.vlt@icloud.com">edouard.vlt@icloud.com</a>
                 </p>
-            </div>
-        </div>
-    </section>
 
+                <h3>Intérêts</h3>
+                <p>Cybersécurité, Codage, Voile, Cinéma SF, Voyages</p>
+            </div>
+        </section>
+
+        <section class="tools-section reveal">
+            <div class="tools-container">
+                <div class="tools-left">
+                    <div class="tools-title">Ma Stack Technique</div>
+                    <div class="tools-grid">
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/linux/FCC624" alt="Linux" class="tool-icon">
+                            <span class="tool-name">Linux</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg"
+                                alt="Windows Server" class="tool-icon">
+                            <span class="tool-name">Windows</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://img.icons8.com/color/48/active-directory.png" alt="Active Directory"
+                                class="tool-icon">
+                            <span class="tool-name">Active Dir.</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/vmware/607078" alt="VMware" class="tool-icon">
+                            <span class="tool-name">VMware</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/virtualbox/183A61" alt="VirtualBox" class="tool-icon">
+                            <span class="tool-name">VirtualBox</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker" class="tool-icon">
+                            <span class="tool-name">Docker</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/icloud/3693F3" alt="Cloud" class="tool-icon">
+                            <span class="tool-name">Cloud</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" class="tool-icon">
+                            <span class="tool-name">Python</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/gnubash/4EAA25" alt="Bash" class="tool-icon">
+                            <span class="tool-name">Bash</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/c/A8B9CC" alt="C" class="tool-icon">
+                            <span class="tool-name">C</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/assemblyscript/007AAC" alt="Assembleur"
+                                class="tool-icon">
+                            <span class="tool-name">Assembleur</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/go/00ADD8" alt="Go" class="tool-icon">
+                            <span class="tool-name">Go</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" class="tool-icon">
+                            <span class="tool-name">JavaScript</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/nodedotjs/339933" alt="Node.js" class="tool-icon">
+                            <span class="tool-name">Node.js</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/php/777BB4" alt="PHP" class="tool-icon">
+                            <span class="tool-name">PHP</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL" class="tool-icon">
+                            <span class="tool-name">MySQL</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/git/F05032" alt="Git" class="tool-icon">
+                            <span class="tool-name">Git</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/github/FFFFFF" alt="GitHub" class="tool-icon">
+                            <span class="tool-name">GitHub</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/apache/D22128" alt="Apache" class="tool-icon">
+                            <span class="tool-name">Apache</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/gnometerminal/FFFFFF" alt="SSH" class="tool-icon">
+                            <span class="tool-name">SSH</span>
+                        </div>
+                        <div class="tool-item">
+                            <img src="https://cdn.simpleicons.org/grafana/F46800" alt="Grafana" class="tool-icon">
+                            <span class="tool-name">Grafana</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tools-right">
+                    <p class="tools-description">
+                        J&rsquo;utilise des <b>standards industriels</b> et des outils d&rsquo;<b>automatisation</b>
+                        pour
+                        déployer, surveiller et sécuriser les environnements de production.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!--
     <section class="categories-section reveal" id="projects">
         <a href="carousel try2.html" class="category-card">
             <img src="images/ChatGPT Image Jan 1, 2026, 06_52_49 PM.png" alt="Système" class="category-thumb">
@@ -1896,277 +2932,263 @@
 
 
     </section>
+-->
 
+        <!-- Liquid Glass Button Container -->
+        <div id="glass-button-container">
+            <span class="glass-button-text">Contact</span>
+        </div>
 
-    <!-- Liquid Glass Button Container -->
-    <div id="glass-button-container">
-        <span class="glass-button-text">Contact</span>
-    </div>
+        <script type="module">
+            import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 
-    <script type="module">
-        import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+            function initLiquidButton(containerId) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
 
-        function initLiquidButton(containerId) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
+                const scene = new THREE.Scene();
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+                camera.position.z = 5;
 
-            const scene = new THREE.Scene();
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-            camera.position.z = 5;
+                const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                renderer.setSize(width, height);
+                renderer.setPixelRatio(window.devicePixelRatio);
+                container.appendChild(renderer.domElement);
 
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(width, height);
-            renderer.setPixelRatio(window.devicePixelRatio);
-            container.appendChild(renderer.domElement);
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                scene.add(ambientLight);
 
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-            scene.add(ambientLight);
+                const pointLight = new THREE.PointLight(0xffffff, 2);
+                pointLight.position.set(2, 3, 4);
+                scene.add(pointLight);
 
-            const pointLight = new THREE.PointLight(0xffffff, 2);
-            pointLight.position.set(2, 3, 4);
-            scene.add(pointLight);
+                const material = new THREE.MeshPhysicalMaterial({
+                    color: 0xffffff,
+                    roughness: 0,
+                    metalness: 0.1,
+                    transmission: 0.95,
+                    thickness: 0.5,
+                    ior: 1.5,
+                    opacity: 0.8,
+                    transparent: true,
+                    clearcoat: 1,
+                });
 
-            const material = new THREE.MeshPhysicalMaterial({
-                color: 0xffffff,
-                roughness: 0,
-                metalness: 0.1,
-                transmission: 0.95,
-                thickness: 0.5,
-                ior: 1.5,
-                opacity: 0.8,
-                transparent: true,
-                clearcoat: 1,
+                // Torus Knot for that "liquid" complex look
+                const geometry = new THREE.TorusKnotGeometry(1.2, 0.4, 128, 32);
+                const mesh = new THREE.Mesh(geometry, material);
+                scene.add(mesh);
+
+                const animate = () => {
+                    requestAnimationFrame(animate);
+                    mesh.rotation.x += 0.01;
+                    mesh.rotation.y += 0.015;
+                    renderer.render(scene, camera);
+                };
+                animate();
+
+                // Click interaction
+                container.addEventListener('click', () => {
+                    // Flash effect
+                    material.emissive.setHex(0x333333);
+                    setTimeout(() => {
+                        material.emissive.setHex(0x000000);
+                        // Redirect to contact page
+                        window.location.href = 'contact.html';
+                    }, 100);
+
+                    console.log("Connect button clicked! Redirecting...");
+                });
+            }
+
+            window.addEventListener('load', () => {
+                initLiquidButton('glass-button-container');
+            });
+        </script>
+        <script>
+            // Timeline reveal animations
+            const timelineItems = document.querySelectorAll('.timeline-item');
+
+            const timelineObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-active');
+                        timelineObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
             });
 
-            // Torus Knot for that "liquid" complex look
-            const geometry = new THREE.TorusKnotGeometry(1.2, 0.4, 128, 32);
-            const mesh = new THREE.Mesh(geometry, material);
-            scene.add(mesh);
+            timelineItems.forEach(item => timelineObserver.observe(item));
+        </script>
 
-            const animate = () => {
-                requestAnimationFrame(animate);
-                mesh.rotation.x += 0.01;
-                mesh.rotation.y += 0.015;
-                renderer.render(scene, camera);
-            };
-            animate();
+        <script>
+            // General reveal animations
+            const revealElements = document.querySelectorAll('.reveal');
 
-            // Click interaction
-            container.addEventListener('click', () => {
-                // Flash effect
-                material.emissive.setHex(0x333333);
-                setTimeout(() => {
-                    material.emissive.setHex(0x000000);
-                    // Redirect to contact page
-                    window.location.href = 'contact.html';
-                }, 100);
-
-                console.log("Connect button clicked! Redirecting...");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15
             });
-        }
 
-        window.addEventListener('load', () => {
-            initLiquidButton('glass-button-container');
-        });
-    </script>
+            revealElements.forEach(el => observer.observe(el));
+        </script>
+        <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+        <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+        <script>
+            gsap.registerPlugin(ScrollTrigger);
 
-    <script>
-        const revealElements = document.querySelectorAll('.reveal');
+            const hero = document.querySelector(".hero-section");
+            const heroText = document.querySelector(".hero-text");
+            const heroRight = document.querySelector(".hero-right");
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.15
-        });
+            // Main hero scroll interaction (guarded)
+            if (hero && heroText && heroRight) {
+                gsap.timeline({
+                    scrollTrigger: {
+                        trigger: hero,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: 1.2,
+                    }
+                })
+                    .to(heroText, {
+                        y: -120,
+                        scale: 0.92,
+                        opacity: 0.85,
+                        ease: "power2.out"
+                    }, 0)
+                    .to(heroRight, {
+                        y: -80,
+                        opacity: 0,
+                        ease: "power2.out"
+                    }, 0);
 
-        revealElements.forEach(el => observer.observe(el));
-    </script>
-    <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
-    <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
-    <script>
-        gsap.registerPlugin(ScrollTrigger);
-
-        const hero = document.querySelector(".hero-section");
-        const heroText = document.querySelector(".hero-text");
-        const heroRight = document.querySelector(".hero-right");
-
-        // Main hero scroll interaction (guarded)
-        if (hero && heroText && heroRight) {
-            gsap.timeline({
-                scrollTrigger: {
+                // Parallax effect for hero background image (::before)
+                gsap.to(hero, {
+                    scrollTrigger: {
+                        trigger: hero,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true
+                    },
+                    "--hero-parallax": "120px"
+                });
+                ScrollTrigger.create({
                     trigger: hero,
                     start: "top top",
                     end: "bottom top",
-                    scrub: 1.2,
-                }
-            })
-                .to(heroText, {
-                    y: -120,
-                    scale: 0.92,
-                    opacity: 0.85,
-                    ease: "power2.out"
-                }, 0)
-                .to(heroRight, {
-                    y: -80,
-                    opacity: 0,
-                    ease: "power2.out"
-                }, 0);
+                    onEnter: () => hero.classList.add("hero-active"),
+                    onLeaveBack: () => hero.classList.remove("hero-active")
+                });
+            }
 
-            // Parallax effect for hero background image (::before)
-            gsap.to(hero, {
+        </script>
+        <script>
+            const videos = document.querySelectorAll('.category-video');
+
+            const videoObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const p = entry.target.play && entry.target.play();
+                        if (p && p.catch) p.catch(() => { });
+                    } else {
+                        if (entry.target.pause) entry.target.pause();
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            videos.forEach(video => videoObserver.observe(video));
+        </script>
+        <footer class="site-footer">
+            <div class="footer-container">
+                <div class="footer-name">
+                    Edouard Vallet
+                </div>
+
+                <div class="footer-left">
+                    <img src="/images/Edouard Vallet.gif" alt="Edouard Vallet logo" class="footer-logo">
+                    <p class="footer-tagline ttcommons">
+                        Administration Syst<span class="std-char">è</span>me & S<span
+                            class="std-char">é</span>curit<span class="std-char">é</span>.<br>
+                        Fiabilit<span class="std-char">é</span> et Performance.
+                    </p>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <span class="footer-title">Navigation</span>
+                        <a href="#">Accueil</a>
+                        <a href="#about">À propos</a>
+                        <a href="#projects">Projets</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+
+                    <div class="footer-column">
+                        <span class="footer-title">Réseaux</span>
+                        <a href="https://github.com/Edouardvit" target="_blank">GitHub</a>
+                        <a href="https://linkedin.com/in/edouard-vallet/" target="_blank"
+                            rel="noopener noreferrer">LinkedIn</a>
+                        <a href="mailto:edouard.vlt@icloud.com">Email</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom ttcommons">
+                © 2026 Edouard Vallet • Administrateur Système Réseau et Cloud
+            </div>
+        </footer>
+        <script>
+            // Register ScrollTrigger if not already done
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Footer Name Swipe Animation
+            gsap.from(".footer-name", {
                 scrollTrigger: {
-                    trigger: hero,
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true
+                    trigger: ".site-footer", // Starts when the footer enters the view
+                    start: "top 90%",        // Animates when footer is 90% down the screen
+                    toggleActions: "play none none none"
                 },
-                "--hero-parallax": "120px"
+                x: -200,                // Start 200px to the left
+                opacity: 0,             // Start invisible
+                duration: 1.5,          // Speed of the swipe
+                ease: "power4.out",     // Smooth "deceleration" effect
+                autoAlpha: 1,           // Switches visibility from hidden to visible
+                delay: 0.2              // Slight delay for a premium feel
             });
-            ScrollTrigger.create({
-                trigger: hero,
-                start: "top top",
-                end: "bottom top",
-                onEnter: () => hero.classList.add("hero-active"),
-                onLeaveBack: () => hero.classList.remove("hero-active")
+        </script>
+
+        <div class="custom-cursor"></div>
+        <script>
+            const cursor = document.querySelector('.custom-cursor');
+
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
             });
-        }
 
-    </script>
-    <script>
-        const videos = document.querySelectorAll('.category-video');
-
-        const videoObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const p = entry.target.play && entry.target.play();
-                    if (p && p.catch) p.catch(() => { });
-                } else {
-                    if (entry.target.pause) entry.target.pause();
-                }
+            // Scale cursor on interactive elements
+            document.querySelectorAll('a, button').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                });
             });
-        }, { threshold: 0.3 });
-
-        videos.forEach(video => videoObserver.observe(video));
-    </script>
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-name">
-                Edouard Vallet
-            </div>
-
-            <div class="footer-left">
-                <img src="https://i.ibb.co/NdZmT13P/ls2-Photoroom-png-Photoroom-Copy-1-Copy.png" alt="Layerstop logo"
-                    class="footer-logo">
-                <p class="footer-tagline ttcommons">
-                    Administration Syst<span class="std-char">è</span>me & S<span class="std-char">é</span>curit<span
-                        class="std-char">é</span>.<br>
-                    Fiabilit<span class="std-char">é</span> et Performance.
-                </p>
-            </div>
-
-            <div class="footer-links">
-                <div class="footer-column">
-                    <span class="footer-title">Navigation</span>
-                    <a href="#">Accueil</a>
-                    <a href="#about">À propos</a>
-                    <a href="#projects">Projets</a>
-                    <a href="contact.html">Contact</a>
-                </div>
-
-                <div class="footer-column">
-                    <span class="footer-title">Réseaux</span>
-                    <a href="https://github.com/Edouardvit" target="_blank">GitHub</a>
-                    <a href="https://linkedin.com/in/edouard-vallet/" target="_blank"
-                        rel="noopener noreferrer">LinkedIn</a>
-                    <a href="mailto:edouard.vlt@icloud.com">Email</a>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="footer-bottom ttcommons">
-            © 2026 Edouard Vallet • Administrateur Système Réseau et Cloud
-        </div>
-    </footer>
-    <script>
-        // Register ScrollTrigger if not already done
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Footer Name Swipe Animation
-        gsap.from(".footer-name", {
-            scrollTrigger: {
-                trigger: ".site-footer", // Starts when the footer enters the view
-                start: "top 90%",        // Animates when footer is 90% down the screen
-                toggleActions: "play none none none"
-            },
-            x: -200,                // Start 200px to the left
-            opacity: 0,             // Start invisible
-            duration: 1.5,          // Speed of the swipe
-            ease: "power4.out",     // Smooth "deceleration" effect
-            autoAlpha: 1,           // Switches visibility from hidden to visible
-            delay: 0.2              // Slight delay for a premium feel
-        });
-    </script>
-    <div id="github-popup" class="glass-popup">
-        <div class="popup-content">
-            <p>Visitez la page <a href="contact.html">Contact</a> pour mon GitHub!</p>
-            <button id="close-popup">&times;</button>
-        </div>
-    </div>
-    <script>
-        const popup = document.getElementById('github-popup');
-        const closeBtn = document.getElementById('close-popup');
-
-        function togglePopup() {
-            // Show the popup
-            popup.classList.add('show');
-
-            // Stay for 5 seconds then hide
-            setTimeout(() => {
-                popup.classList.remove('show');
-            }, 5000);
-        }
-
-        // Manual close listener
-        closeBtn.addEventListener('click', () => {
-            popup.classList.remove('show');
-        });
-
-        // 3 second delay before the very first appearance
-        setTimeout(() => {
-            togglePopup();
-
-            // After the first one shows, repeat every 20 seconds
-            setInterval(togglePopup, 30000);
-        }, 3000);
-    </script>
-    <div class="custom-cursor"></div>
-    <script>
-        const cursor = document.querySelector('.custom-cursor');
-
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        // Scale cursor on interactive elements
-        document.querySelectorAll('a, button').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-            });
-        });
-    </script>
+        </script>
 
 </body>
 
