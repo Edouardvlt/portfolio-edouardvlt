@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Projets | Edouard Vallet</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Edouard Vallet – Mes Projets" />
+    <meta property="og:description"
+        content="Découvrez l'ensemble de mes projets : Développement Web, Administration Système et DevOps." />
+    <meta property="og:image"
+        content="https://edouardvlt.github.io/portfolio-edouardvlt/images/Background-portfolio.png" />
+    <meta property="og:url" content="https://edouardvlt.github.io/portfolio-edouardvlt/projects.html" />
+    <meta property="og:type" content="website" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+
+    <style>
+        /* Reusing Core Styles from index.html */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Fonts */
+        @font-face {
+            font-family: 'HelveticaLocal';
+            src: url('./fonts/Helvetica-Bold.ttf') format('truetype');
+            font-weight: 700;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'FormalScriptLocal';
+            src: url('./fonts/FormalScriptBold.otf') format('opentype');
+            font-weight: 700;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'AldynHeartItalic';
+            src: url('./fonts/Aldyn Heart Italic.ttf') format('truetype');
+            font-weight: 400;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'AlroLocal';
+            src: url('./fonts/alro-alro-bold-700.ttf') format('truetype');
+            font-weight: 700;
+            font-display: swap;
+        }
+
+        .ttcommons {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .std-char {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: -1rem;
+        }
+
+        .logo img {
+            height: 75px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-family: 'AlroLocal', sans-serif;
+            font-weight: 700;
+            padding: 0.6rem 1.2rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button {
+            background: white;
+            color: #ff6b35;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .arrow {
+            width: 20px;
+            height: 20px;
+            background: #ff6b35;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: white;
+            padding-bottom: 2px;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.8) 100%),
+                radial-gradient(circle at 75% 50%, #ff8c42 0%, #f7931e 30%, #c1272d 60%, #000000 100%);
+            min-height: 40vh;
+            padding: 8rem 2rem 4rem;
+            border-radius: 0 0 60px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-header h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-family: 'HelveticaLocal', sans-serif;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 1rem;
+            text-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header h2 {
+            font-family: 'FormalScriptLocal', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.02em;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .portfolio-item {
+            height: 400px;
+            width: 100%;
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5) !important;
+            z-index: 2;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .portfolio-item:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-info-mini {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+            z-index: 3;
+        }
+
+        .project-info-mini h3 {
+            color: white;
+            font-size: 1.4rem;
+            margin: 0 0 0.3rem 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+        }
+
+        .project-info-mini p {
+            color: #ff6b35;
+            font-size: 0.9rem;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        /* Modal Styles (Copied & Cleaned) */
+        .project-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-glass-content {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 0;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        #close-modal-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        #close-modal-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            min-height: 500px;
+        }
+
+        .modal-image-col {
+            position: relative;
+            height: 100%;
+            min-height: 300px;
+        }
+
+        .modal-image-col img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 24px 0 0 24px;
+        }
+
+        .modal-content-col {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #modal-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.1;
+        }
+
+        #modal-stack {
+            color: #ff6b35;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-section-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .modal-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #ddd;
+            margin-bottom: 1.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #modal-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: black;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            align-self: start;
+            transition: transform 0.2s;
+        }
+
+        #modal-link:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 900px) {
+            .modal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-image-col img {
+                border-radius: 24px 24px 0 0;
+                height: 300px;
+            }
+
+            .modal-content-col {
+                padding: 2rem;
+            }
+
+            .page-header {
+                min-height: 30vh;
+                padding-top: 6rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">
+            <a href="index.html">
+                <img src="/images/Edouard Vallet.gif" alt="Edouard Vallet logo">
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="index.html#about">À propos</a></li>
+            <li><a href="#" class="active">Projets</a></li>
+        </ul>
+        <a href="contact.html" class="cta-button" aria-label="Go to contact page">
+            <span class="cta-text">Me contacter</span>
+            <span class="arrow">→</span>
+        </a>
+    </nav>
+
+    <header class="page-header">
+        <h2 class="designer-first">Tous Mes</h2>
+        <h1 class="hero-title">Projets</h1>
+    </header>
+
+    <main class="projects-grid">
+        <!-- Project 1: Optimix -->
+        <div class="portfolio-item project-card" data-title="Optimix Web"
+            data-desc="Site vitrine développé pour une micro-entreprise locale. L'objectif était de moderniser leur présence en ligne avec une interface épurée et performante."
+            data-feeling="C'était mon premier vrai projet client. J'ai adoré la phase d'échange pour comprendre leurs besoins réels. Le plus dur était de simplifier l'interface pour qu'elle reste accessible à leurs clients non-techniques. Une vraie fierté de voir le site en ligne !"
+            data-stack="HTML5 • CSS3 • JavaScript" data-image="images/Optimix.png" data-link="#">
+            <img src="images/Optimix.png" alt="Optimix Project">
+            <div class="project-info-mini">
+                <h3>Optimix</h3>
+                <p>Dév. Web</p>
+            </div>
+        </div>
+
+        <!-- Project 2: Devine l'Article -->
+        <div class="portfolio-item project-card" data-title="Devine l'Article"
+            data-desc="Jeu interactif inspiré de Pédantix. L'objectif est de deviner un article Wikipédia en révélant les mots cachés de son résumé. Système de thèmes et génération aléatoire."
+            data-feeling="Projet collaboratif (avec Ethan M. et Gaël P.) utilisant les APIs Wikipedia, Datamuse et MyMemory. Un excellent exercice sur la manipulation de texte complexe et l'intégration de services tiers via un backend Flask."
+            data-stack="JS Vanilla • Wikipedia API • Datamuse • Flask" data-image="images/devine-l-article.png"
+            data-link="#">
+            <img src="images/devine-l-article.png" alt="Devine l'Article">
+            <div class="project-info-mini">
+                <h3>Devine l'Article</h3>
+                <p>Dév. Web</p>
+            </div>
+        </div>
+
+        <!-- Project 3: Portfolio -->
+        <div class="portfolio-item project-card" data-title="Mon Portfolio"
+            data-desc="La plateforme sur laquelle vous naviguez ! Conçue pour refléter ma personnalité et mes compétences techniques avec une touche créative."
+            data-feeling="Je voulais sortir des sentiers battus. Pas de template WordPress, tout à la main. J'ai passé beaucoup de temps sur les animations (GSAP) et le glassmorphism pour donner cet effet 'premium' et fluide. C'est mon terrain de jeu pour tester de nouvelles choses."
+            data-stack="HTML5 • CSS3 • GSAP • Three.js" data-image="images/Background-portfolio.png"
+            data-link="index.html">
+            <img src="images/Background-portfolio.png" alt="Portfolio Project">
+            <div class="project-info-mini">
+                <h3>Portfolio</h3>
+                <p>Personal Branding</p>
+            </div>
+        </div>
+
+        <!-- Project 4: Site Hive -->
+        <div class="portfolio-item project-card" data-title="Site Hive"
+            data-desc="Site collaboratif réalisé pour centraliser les infos du festival Hive : check-list d'équipement partagée, suivi des sacs et validation des billets en temps réel entre amis."
+            data-feeling="Un projet né d'un besoin entre potes pour ne rien oublier en festival. C'était super gratifiant de voir mes amis utiliser l'outil en direct pour s'organiser. J'ai beaucoup appris sur l'expérience utilisateur en observant leurs retours immédiats."
+            data-stack="HTML5 • CSS3 • JavaScript" data-image="images/site-hive.png" data-link="#">
+            <img src="images/site-hive.png" alt="Site Hive">
+            <div class="project-info-mini">
+                <h3>Site Hive</h3>
+                <p>Dév. Web</p>
+            </div>
+        </div>
+
+        <!-- Project 5: Portfolio Croquis -->
+        <div class="portfolio-item project-card" data-title="Portfolio Croquis"
+            data-desc="J'ai réalisé ce site pour ma meilleure amie afin qu'elle puisse avoir son propre portfolio, exposer ses croquis et montrer les projets artistiques qui lui tiennent à cœur."
+            data-feeling="J'ai pris beaucoup de plaisir à faire celui-là, c'était gratifiant de mettre mes compétences au service d'un projet créatif et personnel."
+            data-stack="HTML5 • CSS3 • Design • React.js" data-image="images/site-portfolio-croquis.png" data-link="#">
+            <img src="images/site-portfolio-croquis.png" alt="Portfolio Croquis Project">
+            <div class="project-info-mini">
+                <h3>Portfolio Croquis</h3>
+                <p>Art & Design</p>
+            </div>
+        </div>
+
+        <!-- Project 6: Home Server Acer -->
+        <div class="portfolio-item project-card" data-title="Home Server Acer"
+            data-desc="Transformation d'un ancien PC Acer X1430 en serveur domestique : IP statique, Docker, sécurisation SSH/Wireguard et mise en place d'un certificat HTTPS Let's Encrypt."
+            data-feeling="Ce projet démontre l'optimisation de matériel recyclé. J'ai mis en place du monitoring thermique (alertes Discord) et une stratégie de sauvegarde 3-2-1 automatisée vers le Cloud. Une vraie fierté de redonner vie à cette machine via Docker !"
+            data-stack="Ubuntu Server • Docker • Bash • S3" data-image="images/grafana-dashboard-english.png"
+            data-link="#">
+            <img src="images/grafana-dashboard-english.png" alt="Home Server Project">
+            <div class="project-info-mini">
+                <h3>Serveur Acer</h3>
+                <p>Infra & DevOps</p>
+            </div>
+        </div>
+
+        <!-- Project 7: Hytale Dashboard -->
+        <div class="portfolio-item project-card" data-title="Hytale Dashboard"
+            data-desc="Preuve de Concept d'une infrastructure web temps réel pour Hytale. Simulation d'un serveur de jeu avec tableau de bord Next.js : carte interactive Live Map, logs de chat et monitoring (TPS/Joueurs)."
+            data-feeling="Gros travail sur l'esthétique 'Hytale' (Fantasy/Médiéval) mixée à du Next.js 15 et Socket.io. La gestion du temps réel avec Leaflet pour la carte des joueurs était le défi le plus intéressant."
+            data-stack="Next.js 15 • Socket.io • Tailwind v4 • Leaflet" data-image="images/hytale.jpg" data-link="#">
+            <img src="images/hytale.jpg" alt="Hytale Dashboard">
+            <div class="project-info-mini">
+                <h3>Hytale Dashboard</h3>
+                <p>Dév. Web</p>
+            </div>
+        </div>
+
+        <!-- Project 8: ApplyTrack API -->
+        <div class="portfolio-item project-card" data-title="ApplyTrack API"
+            data-desc="API REST complète pour le suivi des candidatures (Entreprises, Contacts, Interactions). Architecture robuste avec authentification JWT et base de données MySQL."
+            data-feeling="Un projet pur backend pour maîtriser l'architecture REST et la sécurité. Concevoir le schéma de base de données relationnelle et sécuriser les endpoints avec JWT m'a permis de solidifier mes bases en développement serveur."
+            data-stack="Node.js • Express • MySQL • JWT"
+            data-image="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop"
+            data-link="#">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop"
+                alt="ApplyTrack API">
+            <div class="project-info-mini">
+                <h3>ApplyTrack API</h3>
+                <p>Backend</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- PROJECT MODAL POPUP -->
+    <div id="project-modal" class="project-modal">
+        <div class="modal-glass-content">
+            <button id="close-modal-btn">&times;</button>
+            <div class="modal-grid">
+                <!-- Left: Image -->
+                <div class="modal-image-col">
+                    <img id="modal-image" src="" alt="Project Preview">
+                </div>
+                <!-- Right: Content -->
+                <div class="modal-content-col">
+                    <h2 id="modal-title">Project Title</h2>
+                    <p id="modal-stack">HTML • CSS • JS</p>
+
+                    <p class="modal-section-title">Le Projet</p>
+                    <p id="modal-desc" class="modal-text">Description goes here...</p>
+
+                    <p class="modal-section-title">Ressenti / Challenges</p>
+                    <p id="modal-feeling" class="modal-text">My feelings...</p>
+
+                    <a id="modal-link" href="#" target="_blank">
+                        Visiter le site <span style="font-size: 1.2rem;">↗</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reusing Footer from index.html -->
+    <footer class="site-footer" style="margin-top: auto; padding-top: 4rem;">
+        <div
+            style="max-width: 1400px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; padding-bottom: 2rem;">
+            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600;">Edouard Vallet</div>
+            <div style="font-size: 0.9rem; opacity: 0.6;">© 2026</div>
+        </div>
+    </footer>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"
+        style="position: fixed; top: 0; left: 0; width: 20px; height: 20px; border: 1px solid rgba(255,255,255,0.8); border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); transition: transform 0.1s; z-index: 9999;">
+    </div>
+
+    <script>
+        // Cursor Logic
+        const cursor = document.querySelector('.custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        document.querySelectorAll('a, button, .portfolio-item').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.style.transform = 'translate(-50%, -50%) scale(1.8)');
+            el.addEventListener('mouseleave', () => cursor.style.transform = 'translate(-50%, -50%) scale(1)');
+        });
+
+        // Modal Logic
+        const modal = document.getElementById('project-modal');
+        const closeModal = document.getElementById('close-modal-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        // Elements to populate
+        const modalImg = document.getElementById('modal-image');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalFeeling = document.getElementById('modal-feeling');
+        const modalStack = document.getElementById('modal-stack');
+        const modalLink = document.getElementById('modal-link');
+
+        // Open Modal
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.getAttribute('data-title');
+                const desc = card.getAttribute('data-desc');
+                const feeling = card.getAttribute('data-feeling');
+                const stack = card.getAttribute('data-stack');
+                const image = card.getAttribute('data-image');
+                const link = card.getAttribute('data-link');
+
+                modalTitle.textContent = title;
+                modalDesc.textContent = desc;
+                modalFeeling.textContent = feeling;
+                modalStack.textContent = stack;
+                modalImg.src = image;
+                modalLink.href = link;
+
+                // Hide button if link is '#' or empty or 'index.html' (self) to avoid confusion
+                if (link === '#' || !link || link === 'index.html') {
+                    modalLink.style.display = 'none';
+                } else {
+                    modalLink.style.display = 'inline-flex';
+                }
+
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            });
+        });
+
+        // Close Modal
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        });
+
+        // Close on click outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+
+</html>
