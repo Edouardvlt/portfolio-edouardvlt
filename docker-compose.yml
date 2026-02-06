@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  react-app:
+    build: .
+    container_name: site-portfolio
+    restart: always
+    networks:
+      - lab_network
+
+networks:
+  lab_network:
+    external: true
+    name: docker_default
