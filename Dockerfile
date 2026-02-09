@@ -1,10 +1,14 @@
-# Utilisation d'un serveur web ultra-léger pour l'Acer
-FROM nginx:stable-alpine
+# Image de base : Nginx ultra-léger (Alpine)
+FROM nginx:alpine
 
-# On copie tout ton code HTML et tes images dans le serveur
+# Nettoyage du dossier par défaut
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copie de tes fichiers locaux vers le serveur web du conteneur
 COPY . /usr/share/nginx/html
 
-# Le serveur écoutera sur le port 80
+# Le port interne est le 80
 EXPOSE 80
 
+# Lancement du serveur
 CMD ["nginx", "-g", "daemon off;"]

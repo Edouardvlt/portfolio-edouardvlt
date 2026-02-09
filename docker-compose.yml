@@ -1,13 +1,14 @@
 version: '3.8'
+
 services:
-  react-app:
+  site-lab:
+    # On change le nom du service
     build: .
-    container_name: site-portfolio
+    container_name: site-lab # IMPORTANT : Nom unique pour éviter le conflit
     restart: always
     networks:
-      - lab_network
+      - tunnel_network
 
 networks:
-  lab_network:
+  tunnel_network:
     external: true
-    name: docker_default
