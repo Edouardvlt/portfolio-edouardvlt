@@ -2,13 +2,13 @@ version: '3.8'
 
 services:
   site-lab:
-    # On change le nom du service
+    # On le nomme site-lab pour ton environnement de test
     build: .
-    container_name: site-lab # IMPORTANT : Nom unique pour éviter le conflit
+    container_name: site-lab
     restart: always
     networks:
-      - tunnel_network
+      - tunnel_network # IMPORTANT : On se branche sur le réseau de NPM/Tunnel
 
 networks:
   tunnel_network:
-    external: true
+    external: true # On dit à Docker que ce réseau existe déjà sur l'Acer
