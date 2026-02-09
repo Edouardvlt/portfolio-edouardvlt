@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Trigger Portainer Webhook
         run: |
-          curl -X POST "${{ secrets.PORTAINER_WEBHOOK_URL_LAB }}"
+          curl -X POST "${{ secrets.PORTAINER_WEBHOOK_URL }}"
