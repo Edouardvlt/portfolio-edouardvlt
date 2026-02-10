@@ -1,99 +1,34 @@
-# Edouard Vallet
-**System Admin | Network | Cloud**
+# Portfolio - Architecture Haute Disponibilité (HA)
 
-[Portfolio](https://edouard-vallet.fr/) | [LinkedIn](https://linkedin.com/in/edouard-vallet/) | [GitHub](https://github.com/Edouardvlt)
+Ce dépôt contient le code source de mon portfolio, auto-hébergé sur mon infrastructure personnelle (Home Lab) avec un système de basculement automatique vers le cloud pour garantir une disponibilité à 100%.
 
----
+## Architecture Technique
 
-## About
+Le site repose sur une architecture moderne alliant serveur physique et services Edge :
 
-**Location:** Nantes, France
-**Focus:** Cybersecurity, Infrastructure, DevOps
-**Status:** Alternance
+- **Hébergement Primaire** : Serveur physique Acer Aspire X1430 sous Ubuntu Server.
+- **Conteneurisation** : Application encapsulée dans un conteneur Docker (site-portfolio).
+- **Reverse Proxy** : Nginx Proxy Manager (NPM) gère le routage interne et les certificats SSL.
+- **Exposition Sécurisée** : Cloudflare Tunnel (Zero Trust) permet l'accès externe sans ouverture de ports sur la box internet.
 
-> "Conception d'architectures systèmes robustes et sécurisées."
+## CI/CD & GitOps
 
-### Experience & Education
+Le déploiement est entièrement automatisé pour permettre des mises à jour instantanées :
 
-| Period | Organization | Role / Details |
-| :--- | :--- | :--- |
-| **2025-2028** | Sup de Vinci, Nantes | Bachelor Info Sys/Network |
-| **2024-2025** | ESGI, Nantes | Bachelor 1 & 2 |
-| **2025** | Optimix, Lille | Web Development Internship |
-| **2023** | Soluce Informatique | IT Support Internship |
+- **GitHub Actions** : Un workflow se déclenche à chaque `git push` sur la branche `master`.
+- **Webhooks Portainer** : GitHub communique directement avec l'instance Portainer de l'Acer pour redéployer la stack automatiquement.
+- **GitOps** : Synchronisation entre le dépôt GitHub et les conteneurs Docker en production.
 
----
+## Résilience & Failover (Haute Disponibilité)
 
-## Technical Skills
+Pour pallier une éventuelle panne du serveur local, un système de Failover a été mis en place :
 
-### Systems & Virtualisation
-Linux, Bash, Windows, Docker, VMware ESXi.
+- **Cloudflare Worker** : Un script Edge agit comme aiguilleur intelligent.
+- **Détection de Panne** : Le Worker teste la santé de l'Acer (via `server.edouard-vallet.fr`).
+- **Bascule Automatique** : En cas d'indisponibilité de l'Acer (timeout ou erreur 5xx), le trafic est redirigé vers GitHub Pages en moins de 3 secondes.
+- **Traçabilité** : Ajout d'un header HTTP personnalisé `X-Served-By` pour identifier la source (Acer ou GitHub) en temps réel.
 
-### Network & Security
-OPNsense, Cisco CCNA, Cloudflare Tunnel (Zero Trust).
+## Optimisations Spécifiques
 
-### Development
-Python, C, Go, JavaScript, HTML, CSS, React, PHP.
-
-### Tools
-Git, GitHub, VS Code, Figma, MySQL, Grafana.
-
----
-
-## Featured Projects
-
-### Multi-Site CCNA Project
-Infrastructure & Network. Implementation of VLANs, OPNsense, and ESXi.
-
-### Hytale Dashboard
-Web Development. Next.js, Socket.io, Leaflet.
-
-### ApplyTrack API
-Backend. Node.js, Express, REST Architecture.
-
-### Server Acer (Home Lab)
-Infrastructure & DevOps. Docker-based homelab environment.
-
----
-
-## Portfolio Architecture (High Availability)
-
-This repository contains the source code for my portfolio, which is self-hosted on my personal infrastructure (Home Lab) with an automatic failover system to the cloud to guarantee 100% availability.
-
-### Technical Architecture
-
-The site relies on a modern architecture combining a physical server and Edge services:
-
-*   **Primary Hosting**: Physical server Acer Aspire X1430 running Ubuntu Server.
-*   **Containerization**: Application encapsulated in a Docker container (`site-portfolio`).
-*   **Reverse Proxy**: Nginx Proxy Manager (NPM) manages internal routing and SSL certificates.
-*   **Secure Exposure**: Cloudflare Tunnel (Zero Trust) allows external access without opening ports on the internet router.
-
-### CI/CD & GitOps
-
-Deployment is fully automated to allow instant updates:
-
-1.  **GitHub Actions**: A workflow is triggered on every `git push` to the master branch.
-2.  **Webhooks Portainer**: GitHub communicates directly with the Portainer instance on the Acer server to redeploy the stack automatically.
-3.  **GitOps**: Synchronization between the GitHub repository and Docker containers in production.
-
-### Resilience & Failover
-
-To mitigate any potential local server failure, a Failover system has been implemented:
-
-*   **Cloudflare Worker**: An Edge script acts as an intelligent router.
-*   **Failure Detection**: The Worker tests the health of the Acer server (via `server.edouard-vallet.fr`).
-*   **Automatic Switching**: In case of Acer unavailability (timeout or 5xx error), traffic is redirected to GitHub Pages in less than 3 seconds.
-*   **Traceability**: Addition of a custom HTTP header `X-Served-By` to identify the source (Acer or GitHub) in real-time.
-
-### Specific Optimizations
-
-*   **Media Management**: Use of a `<video>` tag with `autoplay loop muted` attributes for optimal WebM format support across all browsers.
-*   **Remote Access**: Configuration of secure SSH/SFTP access for remote administration via mobile.
-
----
-
-## Languages & Interests
-
-**Languages**: French (Native), English (B2), German (A2).
-**Interests**: Cybersecurity, Sailing, Sci-Fi Cinema, Travel, Coding.
+- **Gestion des Médias** : Utilisation d'une balise `<video>` avec les attributs `autoplay loop muted` pour le support optimal du format WebM sur tous les navigateurs.
+- **Accès Remote** : Configuration d'un accès SSH/SFTP sécurisé pour l'administration distante via mobile.
